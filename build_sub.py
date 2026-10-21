@@ -86,10 +86,20 @@ FOOT = """</main>
 def lnb(items):
     return '<nav class="lnb" aria-label="하위 메뉴"><div class="wrap">' + ''.join(f'<a href="#{i}">{t}</a>' for i, t in items) + '</div></nav>'
 
-def page(fn, idx, title, lead, visual, items, body):
+BIZ = [('business-epc.html', '태양광 설계·시공'), ('business-electric.html', '전기·통신공사'),
+       ('business-steel.html', '철강 구조물'), ('business-om.html', '유지관리·A/S')]
+
+def subnav(cur):
+    return '<nav class="subnav" aria-label="사업분야"><div class="wrap">' + ''.join(
+        f'<a href="{f}"{" class=\"on\"" if f == cur else ""}>{t}</a>' for f, t in BIZ) + '</div></nav>'
+
+def page(fn, idx, title, lead, visual, items, body, crumb=None):
     act = {k: (' class="on"' if k == idx else '') for k in (1, 2, 3, 4)}
-    out = HEAD.format(title=title, lead=lead, visual=visual, lnb=lnb(items) if items else '',
+    nav = subnav(fn) if fn.startswith('business-') else ''
+    out = HEAD.format(title=title, lead=lead, visual=visual, lnb=nav,
                       a1=act[1], a2=act[2], a3=act[3], a4=act[4]) + body + FOOT
+    if crumb:
+        out = out.replace('<a href="index.html">HOME</a> &rsaquo; ' + title, '<a href="index.html">HOME</a> &rsaquo; ' + crumb + ' &rsaquo; ' + title)
     open(fn, 'w', encoding='utf-8').write(out)
     print(fn, len(out))
 
@@ -224,79 +234,262 @@ about_body = f"""
 </section>
 """
 page('about.html', 1, '회사소개', '안전을 최우선으로, 현장 여건에 맞는 설계와 기술력으로 신뢰를 쌓아갑니다.', 'sub.jpg',
-     [('greeting', '인사말'), ('overview', '회사개요'), ('history', '연혁'), ('license', '보유 면허'), ('location', '오시는 길')], about_body)
+     None, about_body)
 
-# ================= 2. 사업분야 =================
+# ================= 2. 사업분야 (허브 + 상세 4페이지) =================
 business_body = """
-<section class="block" id="epc">
-  <div class="biz-detail">
-    <div>
-      <p class="eyebrow">01 · Design &amp; Construction</p>
-      <h2 class="sec-title">태양광 설계·시공</h2>
-      <p class="sec-lead">현장조사와 발전량 검토부터 구조물·모듈·인버터 설치, 준공 검사까지 발전소 건설 전 과정을 수행합니다. 설계와 시공을 한 회사가 맡아 현장 변경에 즉시 대응합니다.</p>
-      <ul class="checks">
-        <li>현장조사 · 음영 분석 · 발전량 검토 · 배치 설계</li>
-        <li>토목공사 (경사·레벨 측정, 부지 정지, 기초)</li>
-        <li>구조물 설치 · 모듈 · 인버터 · 접속함 시공</li>
-        <li>사용 전 검사 대응 및 준공</li>
-      </ul>
-      <div class="chips"><span class="chip">지상형</span><span class="chip">지붕형</span><span class="chip">수상형</span><span class="chip">건물일체형 BIPV</span><span class="chip">리파워링</span></div>
+<section class="block">
+  <div class="block-head">
+    <p class="eyebrow">Business Areas</p>
+    <h2 class="sec-title">네 가지 사업분야</h2>
+    <p class="sec-lead">설계부터 구조물·전기·유지관리까지 발전소 한 곳에 필요한 공종을 모두 수행합니다. 각 분야의 절차와 기준은 상세 페이지에서 확인할 수 있습니다.</p>
+  </div>
+  <div class="hub">
+    <article class="proj"><div class="ph"><img src="img/goheung.jpg" alt="" loading="lazy"></div>
+      <div class="proj-body"><h3>태양광 설계·시공</h3><p>현장조사와 발전량 검토에서 시작해 배치·구조·전기 설계, 인허가 도면, 시공과 준공 검사까지 발전소 건설 전 과정을 수행합니다.</p><a class="more" href="business-epc.html">설계·시공 절차 보기 →</a></div></article>
+    <article class="proj"><div class="ph"><img src="img/wonju.jpg" alt="" loading="lazy"></div>
+      <div class="proj-body"><h3>전기·통신공사</h3><p>전기공사업 등록 기업으로 수배전 설비, 한전 계통연계, 사용 전 검사와 모니터링 통신설비를 직접 시공합니다.</p><a class="more" href="business-electric.html">계통연계 절차 보기 →</a></div></article>
+    <article class="proj"><div class="ph"><img src="img/chungju.jpg" alt="" loading="lazy"></div>
+      <div class="proj-body"><h3>철강 구조물</h3><p>아연도금·포스맥 소재로 지상형·지붕형·수상형 구조물을 제작·시공합니다. 풍하중·적설하중 기준을 적용해 25년 수명을 설계합니다.</p><a class="more" href="business-steel.html">소재와 설계 기준 보기 →</a></div></article>
+    <article class="proj"><div class="ph"><img src="img/mungyeong.jpg" alt="" loading="lazy"></div>
+      <div class="proj-body"><h3>유지관리 · A/S</h3><p>정기점검과 신속한 A/S로 발전효율을 유지하고, 노후 발전소의 모듈·인버터를 교체하는 리파워링 공사를 수행합니다.</p><a class="more" href="business-om.html">점검 항목 보기 →</a></div></article>
+  </div>
+</section>
+"""
+page('business.html', 2, '사업분야', '설계부터 전기·구조물·유지관리까지, 태양광 발전설비에 필요한 공종을 한 회사에서 수행합니다.', 'hero.jpg', None, business_body)
+
+# ---- 2-1 태양광 설계·시공 ----
+epc_body = """
+<section class="block">
+  <div class="two">
+    <div class="prose">
+      <p class="eyebrow">Overview</p>
+      <h2 class="sec-title">설계와 시공을 한 회사가 맡습니다</h2>
+      <p>태양광 발전소의 수익은 설계 단계에서 대부분 결정됩니다. 같은 부지라도 경사각·방위각·어레이 간격에 따라 연간 발전량이 달라지고, 구조물 형식과 계통연계 방식에 따라 공사비가 달라집니다. 가온이엔지는 현장조사부터 준공 검사까지 한 팀이 맡아, 설계에서 정한 조건이 시공 현장에서 그대로 구현되도록 합니다.</p>
+      <p>설계 도중 현장 조건이 바뀌면(지반 상태, 지붕 구조, 한전 선로 여유 등) 별도의 협의 없이 즉시 설계를 수정하고 공정에 반영합니다. 설계사와 시공사가 나뉘어 있을 때 생기는 책임 공백과 일정 지연을 줄이는 방식입니다.</p>
     </div>
-    <div class="photo"><img src="img/goheung.jpg" alt="지상형 태양광발전소" loading="lazy"></div>
+    <div class="photo"><img src="img/goheung.jpg" alt="지상형 태양광발전소 시공 현장" loading="lazy"></div>
   </div>
 </section>
 
-<section class="block" id="electric">
-  <div class="biz-detail">
-    <div>
-      <p class="eyebrow">02 · Electrical &amp; Telecom</p>
-      <h2 class="sec-title">전기·통신공사</h2>
-      <p class="sec-lead">전기공사업 등록 기업으로서 전기설비 규정에 따라 수배전 설비와 계통연계를 직접 시공합니다. 외주 없이 자체 인력이 수행해 공정 지연과 책임 공백을 줄입니다.</p>
-      <ul class="checks">
-        <li>수배전반 · 저압/고압 전기설비 시공</li>
-        <li>한전 고압케이블 연결 및 계통연계</li>
-        <li>시운전 · 사용 전 검사 (한국전기안전공사)</li>
-        <li>모니터링 · 통신설비 구성</li>
-      </ul>
+<section class="block">
+  <div class="block-head">
+    <p class="eyebrow">Design Process</p>
+    <h2 class="sec-title">설계 절차</h2>
+  </div>
+  <ol class="flow">
+    <li><div><b>현장조사</b><span>부지 경계·경사·지반, 지붕형은 지붕 구조와 노후도, 주변 건물·수목에 의한 음영, 인근 한전 선로의 연계 여유 용량을 확인합니다.</span></div></li>
+    <li><div><b>발전량 검토</b><span>지역 일사량 데이터를 기반으로 경사각·방위각을 조정하며 연간 발전량을 시뮬레이션하고, 음영 손실과 계통 제약을 반영한 설치 용량을 결정합니다.</span></div></li>
+    <li><div><b>배치 · 구조 설계</b><span>어레이 간격(동지 기준 음영 회피)과 구조물 형식을 정하고, 풍하중·적설하중을 검토해 기초 형식을 결정합니다.</span></div></li>
+    <li><div><b>전기 설계</b><span>모듈 스트링 구성, 인버터 용량과 대수, 접속함·수배전반 구성을 단선도로 작성하고 케이블 굵기와 보호장치를 산정합니다.</span></div></li>
+    <li><div><b>인허가 도면</b><span>발전사업허가, 개발행위허가, 사용 전 검사에 필요한 도면과 계산서를 작성해 기관 제출을 지원합니다.</span></div></li>
+  </ol>
+</section>
+
+<section class="block">
+  <div class="block-head">
+    <p class="eyebrow">Construction</p>
+    <h2 class="sec-title">시공 공정</h2>
+    <p class="sec-lead">다섯 공종을 외주 없이 자체 인력으로 수행해 공정을 단축하고 공사비를 낮춥니다.</p>
+  </div>
+  <div class="process" style="margin-top:0">
+    <div class="step"><h3>토목공사</h3><p>경사·레벨 측정 장비로 부지를 정지하고 기초를 시공합니다.</p></div>
+    <div class="step"><h3>구조물 제작</h3><p>아연도금·포스맥 등 내식성 소재로 구조물을 제작합니다.</p></div>
+    <div class="step"><h3>구조물 공사</h3><p>숙련 인력이 구조물을 설치하고 모듈을 고정합니다.</p></div>
+    <div class="step"><h3>전기공사</h3><p>전기설비 규정에 따라 접속함·인버터·수배전 설비를 시공합니다.</p></div>
+    <div class="step"><h3>계통연계 · 시운전</h3><p>한전 고압케이블을 연결하고 사용 전 검사 후 시운전합니다.</p></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="block-head">
+    <p class="eyebrow">Types</p>
+    <h2 class="sec-title">설치 유형별 시공 포인트</h2>
+    <p class="sec-lead">가온이엔지는 네 가지 유형 모두 준공 실적이 있습니다. 유형마다 설계와 시공에서 챙겨야 할 점이 다릅니다.</p>
+  </div>
+  <div class="types">
+    <article class="type"><div class="photo"><img src="img/yeoju.jpg" alt="" loading="lazy"></div><div class="type-body">
+      <h3>지상형 (토지)</h3><p>부지 경사와 지반 조건에 맞는 기초 선정이 핵심입니다. 배수 계획이 없으면 우기에 기초 세굴이 생깁니다.</p>
+      <ul><li>콘크리트 독립기초 또는 스파이럴 파일 기초</li><li>어레이 간격은 동지 기준 음영으로 결정</li><li>준공 실적: 고흥 3,000kW · 인천북항 5,212kW 등</li></ul></div></article>
+    <article class="type"><div class="photo"><img src="img/wonju.jpg" alt="" loading="lazy"></div><div class="type-body">
+      <h3>지붕형 (공장·건물)</h3><p>지붕 구조의 하중 여유와 방수가 핵심입니다. 지붕 재질(판넬·슬레이트·콘크리트)에 따라 고정 방식이 달라집니다.</p>
+      <ul><li>구조 안전성 검토 후 클램프·앵커 방식 선정</li><li>관통부 방수와 지붕 보수 범위 사전 합의</li><li>준공 실적: 원주 혁신센터 315.4kW · 음성 하이퍼윈도우 234kW</li></ul></div></article>
+    <article class="type"><div class="photo"><img src="img/boryeong.jpg" alt="" loading="lazy"></div><div class="type-body">
+      <h3>수상형 (저수지·담수)</h3><p>부력체와 계류(앵커) 설계가 핵심입니다. 수위 변동과 풍파를 견디면서 어레이 간격을 유지해야 합니다.</p>
+      <ul><li>내식성 소재와 부력체 내구성 검토</li><li>수위 변동 범위에 맞춘 계류 설계</li><li>육상 수전설비까지 케이블 경로 확보</li></ul></div></article>
+    <article class="type"><div class="photo"><img src="img/yeouido.jpg" alt="" loading="lazy"></div><div class="type-body">
+      <h3>건물일체형 (BIPV)</h3><p>모듈이 외장재를 겸하므로 건축 설계 단계부터 협업합니다. 수직면 설치라 발전량보다 외관·방수·안전이 우선 검토 대상입니다.</p>
+      <ul><li>커튼월·외장 시공사와 공정 조율</li><li>수직 설치 조건의 발전량 검토</li><li>준공 실적: 여의도 사학재단 418.9kW · 마곡 CP 163.9kW</li></ul></div></article>
+  </div>
+  <p style="margin-top:2rem"><a class="btn btn-outline" href="projects.html">시공실적 전체 보기</a></p>
+</section>
+"""
+page('business-epc.html', 2, '태양광 설계·시공', '현장조사부터 준공 검사까지, 발전소 건설 전 과정을 한 팀이 수행합니다.', 'goheung.jpg', None, epc_body, crumb='사업분야')
+
+# ---- 2-2 전기·통신공사 ----
+electric_body = """
+<section class="block">
+  <div class="two">
+    <div class="prose">
+      <p class="eyebrow">Overview</p>
+      <h2 class="sec-title">전기공사업 등록 기업이 직접 시공합니다</h2>
+      <p>태양광 발전소에서 전기공사는 모듈에서 생산한 직류를 교류로 바꿔 한전 계통까지 보내는 모든 설비를 다룹니다. 접속함·인버터·수배전반·케이블·접지·보호장치가 여기에 포함되며, 전기사업법과 한국전기설비규정(KEC)을 따라야 하고 전기공사업 등록 업체만 시공할 수 있습니다.</p>
+      <p>가온이엔지는 전기공사업 등록 기업으로 이 공종을 외주 없이 수행합니다. 설계 단계에서 정한 스트링 구성과 보호 협조가 현장에서 그대로 구현되고, 사용 전 검사에서 지적이 나오면 즉시 보완할 수 있습니다.</p>
     </div>
     <div class="photo"><img src="img/wonju.jpg" alt="지붕형 태양광 전기설비" loading="lazy"></div>
   </div>
 </section>
 
-<section class="block" id="steel">
-  <div class="biz-detail">
+<section class="block">
+  <div class="block-head">
+    <p class="eyebrow">Grid Connection</p>
+    <h2 class="sec-title">계통연계 절차</h2>
+  </div>
+  <ol class="flow">
+    <li><div><b>한전 연계 협의</b><span>설치 용량과 연계 지점을 한전에 신청해 선로 여유 용량과 연계 방식을 확정합니다. 선로 여유가 없으면 용량 조정이나 선로 보강이 필요합니다.</span></div></li>
+    <li><div><b>수전·수배전 설비</b><span>일반적으로 100kW 미만은 저압(380V) 연계, 그 이상은 특고압(22.9kV) 연계로 변압기·차단기(VCB)를 갖춘 수전설비가 필요합니다. 최종 방식은 한전 협의로 결정됩니다.</span></div></li>
+    <li><div><b>케이블 포설 · 접지</b><span>직류·교류 케이블을 전압강하 기준 이내로 산정해 포설하고, 구조물·설비 접지와 피뢰 설비를 시공합니다.</span></div></li>
+    <li><div><b>사용 전 검사</b><span>한국전기안전공사가 절연·접지·보호장치 동작을 검사합니다. 합격 후 한전과 계통연계 일정을 잡습니다.</span></div></li>
+    <li><div><b>계통연계 · 시운전</b><span>한전 고압케이블을 연결하고 인버터를 계통에 동기화해 발전을 시작합니다. 초기 발전 데이터로 설계 발전량과 비교 검증합니다.</span></div></li>
+  </ol>
+</section>
+
+<section class="block">
+  <div class="two">
     <div>
-      <p class="eyebrow">03 · Steel Structure</p>
-      <h2 class="sec-title">철강 구조물</h2>
-      <p class="sec-lead">아연도금·포스맥(PosMAC) 등 내식성 소재로 태양광 구조물을 직접 제작·시공합니다. 지붕 형태와 지반 조건에 맞춘 구조물로 장기 안전성을 확보합니다.</p>
+      <p class="eyebrow">Scope</p>
+      <h2 class="sec-title">시공 범위</h2>
       <ul class="checks">
-        <li>지상형 · 지붕형 · 수상형 구조물 설계 및 제작</li>
-        <li>아연도금 · 포스맥 소재 적용</li>
-        <li>숙련 인력 투입으로 신속하고 정확한 구조물 공사</li>
+        <li>접속함 · 인버터 설치, 직류/교류 배선</li>
+        <li>수배전반 · 변압기 · 차단기 등 수전설비</li>
+        <li>접지 · 피뢰 · 서지 보호 설비</li>
+        <li>한전 계통연계 고압케이블 공사</li>
+        <li>발전 모니터링 · 통신설비 (인버터 데이터 수집, 원격 감시)</li>
+        <li>사용 전 검사 및 정기검사 대응</li>
       </ul>
+    </div>
+    <div>
+      <p class="eyebrow">Monitoring</p>
+      <h2 class="sec-title">발전 모니터링</h2>
+      <p class="sec-lead">인버터별 발전량·전압·전류를 통신설비로 수집해 원격에서 확인합니다. 고장이나 발전량 저하를 조기에 발견하는 유지관리의 출발점입니다.</p>
+      <p class="note">모니터링 시스템 구성은 발전소 규모와 발주처 요구(RTU 연동, 전력거래소 계량 등)에 따라 달라집니다.</p>
+    </div>
+  </div>
+</section>
+"""
+page('business-electric.html', 2, '전기·통신공사', '수배전 설비부터 한전 계통연계와 사용 전 검사까지, 전기공사업 등록 기업이 직접 시공합니다.', 'wonju.jpg', None, electric_body, crumb='사업분야')
+
+# ---- 2-3 철강 구조물 ----
+steel_body = """
+<section class="block">
+  <div class="two">
+    <div class="prose">
+      <p class="eyebrow">Overview</p>
+      <h2 class="sec-title">구조물이 발전소의 수명을 정합니다</h2>
+      <p>태양광 모듈의 설계 수명은 25년 이상입니다. 그 기간 동안 모듈을 바람·눈·부식으로부터 지탱하는 것이 구조물입니다. 구조물이 부식되거나 볼트가 풀리면 모듈이 멀쩡해도 발전소를 세워야 합니다. 그래서 구조물은 소재 선택과 하중 설계가 시공 품질 자체입니다.</p>
+      <p>가온이엔지는 지상형·지붕형·수상형 구조물을 아연도금·포스맥 등 내식성 소재로 제작·시공합니다. 설계 단계에서 설치 지역의 풍하중·적설하중을 검토하고, 지반과 지붕 조건에 맞는 기초와 고정 방식을 정합니다.</p>
     </div>
     <div class="photo"><img src="img/chungju.jpg" alt="지붕형 태양광 구조물" loading="lazy"></div>
   </div>
 </section>
 
-<section class="block" id="om">
-  <div class="biz-detail">
+<section class="block">
+  <div class="block-head">
+    <p class="eyebrow">Materials</p>
+    <h2 class="sec-title">구조물 소재</h2>
+  </div>
+  <div class="table-wrap">
+  <table class="spec">
+    <thead><tr><th>소재</th><th>특징</th><th>주로 쓰는 곳</th></tr></thead>
+    <tbody>
+      <tr><th>용융아연도금 강재</th><td>강재 표면에 아연을 입혀 부식을 막는 가장 일반적인 방식. 비용 효율이 높고 강성이 좋으나, 절단·용접부의 도금 손상에 주의해야 합니다.</td><td>지상형 기둥·보, 대규모 발전소</td></tr>
+      <tr><th>포스맥 (PosMAC)</th><td>아연·마그네슘·알루미늄 합금 도금 강판. 일반 아연도금보다 내식성이 크게 높고 절단면 자가 보호 성능이 있어 해안·고습 지역에 유리합니다.</td><td>해안·수상 인접 부지, 퍼린·레일 부재</td></tr>
+      <tr><th>알루미늄</th><td>가볍고 녹이 슬지 않아 지붕 하중 여유가 적을 때 유리하나 강재보다 비용이 높습니다.</td><td>지붕형 레일·클램프</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section class="block">
+  <div class="two">
     <div>
-      <p class="eyebrow">04 · Operation &amp; Maintenance</p>
-      <h2 class="sec-title">유지관리 · A/S</h2>
-      <p class="sec-lead">준공 후 정기점검과 신속한 A/S로 발전효율을 유지합니다. 수명이 다한 발전소의 모듈·인버터 교체(리파워링) 공사도 수행합니다.</p>
+      <p class="eyebrow">Design Criteria</p>
+      <h2 class="sec-title">설계 기준</h2>
       <ul class="checks">
-        <li>정기점검 · 발전량 모니터링</li>
-        <li>고장 대응 및 부품 교체</li>
-        <li>리파워링 (모듈·인버터 교체) 공사</li>
+        <li>풍하중 · 적설하중: 건축구조기준(KDS)의 지역별 기본풍속과 기본적설하중 적용</li>
+        <li>지상형 기초: 지반 조사 결과에 따라 콘크리트 독립기초 또는 스파이럴 파일 선정</li>
+        <li>지붕형: 기존 지붕 구조의 허용 하중 검토 후 설치 용량과 고정 방식 결정</li>
+        <li>수상형: 부력체 내구성, 수위 변동 범위, 계류 하중 검토</li>
+        <li>볼트 체결 토크 관리와 준공 후 점검 기준 제공</li>
       </ul>
+    </div>
+    <div class="photo"><img src="img/field2.jpg" alt="지상형 태양광 구조물" loading="lazy"></div>
+  </div>
+</section>
+"""
+page('business-steel.html', 2, '철강 구조물', '아연도금·포스맥 소재로 지상형·지붕형·수상형 구조물을 제작·시공합니다.', 'chungju.jpg', None, steel_body, crumb='사업분야')
+
+# ---- 2-4 유지관리 ----
+om_body = """
+<section class="block">
+  <div class="two">
+    <div class="prose">
+      <p class="eyebrow">Overview</p>
+      <h2 class="sec-title">발전량은 관리하는 만큼 나옵니다</h2>
+      <p>준공 직후의 발전량이 25년 동안 유지되지는 않습니다. 모듈 표면 오염, 주변 수목 성장으로 인한 음영, 인버터 고장, 접속함 발열, 구조물 볼트 풀림이 조금씩 발전량을 깎습니다. 인버터 한 대가 멈춘 것을 한 달 뒤에 발견하면 그 달 수익의 상당 부분이 사라집니다.</p>
+      <p>가온이엔지는 직접 시공한 발전소는 물론 타사 시공 발전소의 점검·보수도 수행합니다. 설계·시공 경험이 있어 고장 원인을 설비 구조 차원에서 찾습니다.</p>
     </div>
     <div class="photo"><img src="img/mungyeong.jpg" alt="태양광발전소 유지관리" loading="lazy"></div>
   </div>
 </section>
+
+<section class="block">
+  <div class="block-head">
+    <p class="eyebrow">Inspection</p>
+    <h2 class="sec-title">정기점검 항목</h2>
+  </div>
+  <div class="table-wrap">
+  <table class="spec">
+    <thead><tr><th>구분</th><th>점검 내용</th><th>방법</th></tr></thead>
+    <tbody>
+      <tr><th>모듈</th><td>표면 오염 · 파손 · 변색, 핫스팟(국부 과열), 정션박스 상태</td><td>육안, 열화상 카메라, 스트링별 전압·전류 측정</td></tr>
+      <tr><th>구조물</th><td>볼트 풀림 · 부식 · 변형, 기초 침하 · 세굴, 지붕형 고정부 누수</td><td>육안, 토크 점검</td></tr>
+      <tr><th>접속함 · 인버터</th><td>단자 발열, 퓨즈 · 서지보호기 상태, 인버터 효율 · 경보 이력, 냉각팬 · 필터</td><td>열화상, 인버터 로그 분석</td></tr>
+      <tr><th>전기설비</th><td>절연저항, 접지저항, 차단기 · 계전기 동작, 케이블 피복 상태</td><td>절연저항계, 접지저항계</td></tr>
+      <tr><th>발전 데이터</th><td>인버터별 · 스트링별 발전량 편차, 설계 발전량 대비 실적</td><td>모니터링 데이터 분석</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="note">점검 주기는 발전소 규모와 계약 조건에 따라 정합니다. 전기안전관리법에 따른 정기검사 대응을 포함합니다.</p>
+</section>
+
+<section class="block">
+  <div class="two">
+    <div>
+      <p class="eyebrow">A/S</p>
+      <h2 class="sec-title">고장 대응 절차</h2>
+      <ol class="flow">
+        <li><div><b>접수</b><span>전화 · 모니터링 경보로 이상 접수</span></div></li>
+        <li><div><b>원격 진단</b><span>모니터링 데이터로 고장 범위(인버터 · 스트링 · 계통) 1차 판단</span></div></li>
+        <li><div><b>현장 조치</b><span>부품 교체 · 재결선 · 설정 변경 등 조치 후 발전 재개 확인</span></div></li>
+        <li><div><b>보고</b><span>원인 · 조치 내용 · 재발 방지 방안 보고</span></div></li>
+      </ol>
+    </div>
+    <div>
+      <p class="eyebrow">Repowering</p>
+      <h2 class="sec-title">리파워링</h2>
+      <p class="sec-lead">10년 이상 된 발전소는 모듈 효율 저하와 인버터 노후로 발전량이 눈에 띄게 줄어듭니다. 구조물과 계통연계 설비는 그대로 두고 모듈·인버터만 최신 제품으로 교체하면, 같은 부지에서 설치 용량과 발전량을 늘릴 수 있습니다.</p>
+      <ul class="checks">
+        <li>기존 구조물의 하중 여유와 부식 상태 검토</li>
+        <li>신규 모듈 규격에 맞는 구조물 보강 · 스트링 재구성</li>
+        <li>인허가 변경(용량 변경 시) 지원</li>
+        <li>준공 실적: 가평 위곡 리파워링 137kW (2024)</li>
+      </ul>
+    </div>
+  </div>
+</section>
 """
-page('business.html', 2, '사업분야', '설계부터 전기·구조물·유지관리까지, 태양광 발전설비에 필요한 공종을 한 회사에서 수행합니다.', 'hero.jpg',
-     [('epc', '태양광 설계·시공'), ('electric', '전기·통신공사'), ('steel', '철강 구조물'), ('om', '유지관리')], business_body)
+page('business-om.html', 2, '유지관리 · A/S', '정기점검과 신속한 고장 대응으로 발전효율을 유지하고, 노후 발전소는 리파워링으로 되살립니다.', 'mungyeong.jpg', None, om_body, crumb='사업분야')
 
 # ================= 3. 시공실적 =================
 rows = []
@@ -356,25 +549,10 @@ projects_body = f"""
 </script>
 """
 page('projects.html', 3, '시공실적', f'99.5kW 소규모 발전소부터 5MW급 산업단지 발전소, 건물일체형(BIPV)까지 {len(PROJECTS)}개 현장을 준공했습니다.', 'goheung.jpg',
-     [('list', '실적 목록'), ('gallery', '시공 현장')], projects_body)
+     None, projects_body)
 
 # ================= 4. 사업절차 =================
 process_body = """
-<section class="block" id="scope">
-  <div class="block-head">
-    <p class="eyebrow">Scope of Work</p>
-    <h2 class="sec-title">시공 역무범위</h2>
-    <p class="sec-lead">가온이엔지가 직접 수행하는 다섯 공종입니다. 외주 없이 자체 인력이 진행해 공정을 단축하고 공사비를 낮춥니다.</p>
-  </div>
-  <div class="process" style="margin-top:0">
-    <div class="step"><h3>토목공사</h3><p>경사·레벨 측정 장비를 동원해 최적의 토목공사 구축</p></div>
-    <div class="step"><h3>구조물 제작</h3><p>아연도금 · 포스맥 등 경쟁력 있는 소재로 구조물 제작</p></div>
-    <div class="step"><h3>구조물 공사</h3><p>숙련 인력을 투입해 신속하고 정확한 구조물 공사</p></div>
-    <div class="step"><h3>전기공사</h3><p>전기설비 규정에 따른 정확하고 안전한 설계 및 시공</p></div>
-    <div class="step"><h3>계통연계 · 시운전</h3><p>한전과의 고압케이블 연결 작업 및 시운전</p></div>
-  </div>
-</section>
-
 <section class="block" id="procedure">
   <div class="two">
     <div>
@@ -389,10 +567,10 @@ process_body = """
       <p class="note">허가 기관은 설비 용량 기준으로 나뉩니다. 전기사업법상 발전사업 허가 기준.</p>
     </div>
     <ol class="flow">
-      <li><div><b>발전사업 허가</b><span>용량에 따라 산업통상부 · 도청 · 시군구청에 허가 신청</span></div></li>
-      <li><div><b>발전소 건설</b><span>전기사업법에 따라 자기자본으로 상업발전소 건설 (정부지원금 없음)</span></div></li>
-      <li><div><b>사용 전 검사</b><span>한국전기안전공사 검사</span></div></li>
-      <li><div><b>전력수급 계약 체결</b><span>한국전력공사 또는 전력거래소와 계약</span></div></li>
+      <li><div><b>발전사업 허가</b><span>용량에 따라 산업통상부 · 도청 · 시군구청에 신청. 사업계획서, 부지 사용권 증빙, 계통연계 검토 결과 등을 첨부하며, 부지 조건에 따라 개발행위허가·산지/농지 전용이 별도로 필요합니다.</span></div></li>
+      <li><div><b>발전소 건설</b><span>전기사업법에 따라 자기자본으로 상업발전소 건설 (정부지원금 없음). 토목 → 구조물 → 모듈·전기 → 계통연계 순으로 진행합니다.</span></div></li>
+      <li><div><b>사용 전 검사</b><span>한국전기안전공사가 설비의 안전성을 검사. 합격 후에만 계통에 연결할 수 있습니다.</span></div></li>
+      <li><div><b>전력수급 계약 체결</b><span>한국전력공사(PPA) 또는 전력거래소(시장 거래)와 계약. 소규모 발전소는 대부분 한전 PPA를 선택합니다.</span></div></li>
       <li><div><b>사업개시 신고</b><span>사업개시 신고 수리</span></div></li>
       <li><div><b>설비확인</b><span>한국에너지공단에 설비확인 신청</span></div></li>
       <li><div><b>전력공급</b><span>한국전력공사 또는 전력거래소로 발전 전력 공급</span></div></li>
@@ -403,5 +581,4 @@ process_body = """
   </div>
 </section>
 """
-page('process.html', 4, '사업절차', '시공 역무범위와 태양광 발전사업이 진행되는 열 단계를 안내합니다.', 'field2.jpg',
-     [('scope', '시공 역무범위'), ('procedure', '발전사업 진행절차')], process_body)
+page('process.html', 4, '사업절차', '태양광 발전소가 허가부터 수익 발생까지 거치는 열 단계를 안내합니다.', 'field2.jpg', None, process_body)
