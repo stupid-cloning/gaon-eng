@@ -289,3 +289,4 @@ p{margin:0}
 .hub .proj p{color:var(--fg-muted);font-size:.92rem;margin-top:.4rem}
 .hub .proj a.more{display:inline-block;margin-top:.8rem;color:var(--accent);font-weight:700;font-size:.88rem}
 @media (max-width:700px){.types,.hub{grid-template-columns:1fr}}
+.tag-soft{background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent)}
