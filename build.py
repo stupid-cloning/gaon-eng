@@ -14,8 +14,8 @@ ADDR_Q = "%EA%B0%95%EC%9B%90%ED%8A%B9%EB%B3%84%EC%9E%90%EC%B9%98%EB%8F%84%20%EC%
 MENU = [
     ("회사소개", "about-greeting.html", [("인사말", "about-greeting.html"), ("회사개요 · 연혁", "about-overview.html"),
                                       ("보유 면허", "about-license.html"), ("오시는 길", "about-location.html")]),
-    ("사업분야", "business.html", [("지상형 발전소", "business-ground.html"), ("지붕형 · 공공시설", "business-roof.html"),
-                                 ("BIPV · 수상 · 리파워링", "business-special.html"), ("유지관리 · A/S", "business-om.html")]),
+    ("사업분야", "business.html", [("지상형 태양광 발전소", "business-ground.html"), ("지붕형 태양광 · 공공시설", "business-roof.html"),
+                                 ("BIPV · 수상태양광 · 리파워링", "business-special.html"), ("유지관리 · A/S", "business-om.html")]),
     ("시공실적", "projects.html", [("실적 목록", "projects.html"), ("시공 현장 사진", "projects-gallery.html")]),
     ("사업절차", "process.html", []),
 ]
@@ -49,9 +49,9 @@ def head(title, current, visual=None, lead=None, crumb=None):
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="topbar"><div class="wrap"><span>대표전화 <strong>{TEL}</strong> · 평일 09:00–18:00</span><span class="r">{ADDR}</span></div></div>
+<div class="topbar"><div class="wrap"><span>태양광 설계·시공 전문 전기공사업체 · 대표전화 <strong>{TEL}</strong></span><span class="r">{ADDR}</span></div></div>
 <header class="header" id="header"><div class="wrap">
-  <a class="brand" href="index.html" aria-label="가온이엔지 홈"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text"><b>㈜가온이엔지</b><span>GAON ENG</span></span></a>
+  <a class="brand" href="index.html" aria-label="가온이엔지 홈"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text"><b>㈜가온이엔지</b><span>태양광 발전소 설계 · 시공</span></span></a>
   <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="nav">메뉴</button>
   <nav class="nav" id="nav"><ul class="gnb">{gnb(current)}</ul><a href="contact.html" class="btn btn-primary nav-cta">문의하기</a></nav>
 </div></header>
@@ -142,20 +142,20 @@ index_body = f'''
   <div class="wrap">
     <div class="hero-copy">
       <div class="slide-copy is-on">
-        <p class="hero-kicker">지상형 발전소 · 소규모 발전사업자</p>
+        <p class="hero-kicker">지상형 태양광 발전소 · 소규모 발전사업자</p>
         <h1>태양광 발전소,<br>토목부터 계통연계까지 <em>직접 시공</em>합니다</h1>
         <p class="hero-lead">개인·협동조합·SPC의 수백 kW~수 MW급 발전소. 다섯 공종을 한 회사가 맡아 공정을 줄이고 공사비를 낮춥니다.</p>
         <div class="hero-actions"><a class="btn btn-primary" href="business-ground.html">지상형 발전소</a><a class="btn btn-ghost" href="projects.html">시공실적</a></div>
       </div>
       <div class="slide-copy">
-        <p class="hero-kicker">공공시설 · 공장 지붕형</p>
-        <h1>운영 중인 시설 위에,<br><em>안전하게</em> 짓습니다</h1>
+        <p class="hero-kicker">지붕형 태양광 · 공공시설 · 공장</p>
+        <h1>운영 중인 건물 지붕에<br>태양광 발전소를 <em>안전하게</em> 짓습니다</h1>
         <p class="hero-lead">원주 혁신센터 등 공공시설과 기업 공장 지붕형 준공 경험. 구조 안전성과 방수를 먼저 검토하고 조업에 지장 없이 시공합니다.</p>
         <div class="hero-actions"><a class="btn btn-primary" href="business-roof.html">지붕형 · 공공시설</a><a class="btn btn-ghost" href="projects.html">시공실적</a></div>
       </div>
       <div class="slide-copy">
-        <p class="hero-kicker">BIPV · 수상형 · 리파워링</p>
-        <h1>일반 시공과 다른 현장도<br><em>준공 경험</em>이 있습니다</h1>
+        <p class="hero-kicker">건물일체형 BIPV · 수상태양광 · 리파워링</p>
+        <h1>특수 유형 태양광도<br><em>준공 경험</em>이 있습니다</h1>
         <p class="hero-lead">2024년 서울 여의도·마곡 건물일체형(BIPV) 2건, 가평 리파워링, 보령화력 수상태양광 시공 참여.</p>
         <div class="hero-actions"><a class="btn btn-primary" href="business-special.html">BIPV · 수상 · 리파워링</a><a class="btn btn-ghost" href="projects-gallery.html">시공 현장 사진</a></div>
       </div>
@@ -164,10 +164,10 @@ index_body = f'''
     <aside class="stat-card" aria-label="주요 현황">
       <h3>COMPANY AT A GLANCE</h3>
       <div class="stats">
+        <div class="stat"><b>16.4<small>MW</small></b><span>태양광 발전소 누적 시공 용량</span></div>
+        <div class="stat"><b>5.2<small>MW</small></b><span>최대 단일 발전소 (인천북항산업단지)</span></div>
+        <div class="stat"><b>18<small>건</small></b><span>발전소 준공 · 2020년 설립</span></div>
         <div class="stat"><b>5<small>공종</small></b><span>토목·구조물·전기·계통연계 직접 수행</span></div>
-        <div class="stat"><b>5.2<small>MW</small></b><span>최대 단일 사업 (인천북항산업단지)</span></div>
-        <div class="stat"><b>4<small>유형</small></b><span>지상 · 지붕 · BIPV · 수상 준공 경험</span></div>
-        <div class="stat"><b>18<small>건</small></b><span>준공 실적 · 2020년 설립</span></div>
       </div>
       <p class="stat-note">공공시설 · 기업 공장 · 발전사업자 발주 시공 경험</p>
     </aside>
@@ -175,17 +175,17 @@ index_body = f'''
 </section>
 
 <section class="section reveal" id="business"><div class="wrap">
-  <div class="section-head"><div><p class="eyebrow">Business</p><h2 class="sec-title">사업분야</h2>
-  <p class="sec-lead">소규모 발전사업자의 지상형 발전소가 주력이고, 공공시설·공장 지붕형, BIPV·수상·리파워링까지 네 유형 모두 준공 실적이 있습니다.</p></div></div>
+  <div class="section-head"><div><p class="eyebrow">Business</p><h2 class="sec-title">태양광 사업분야</h2>
+  <p class="sec-lead">소규모 발전사업자의 지상형 태양광 발전소가 주력이고, 공공시설·공장 지붕형, BIPV·수상·리파워링까지 네 유형 모두 준공 실적이 있습니다.</p></div></div>
   <div class="biz">
     <article class="biz-card"><div class="biz-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="11" rx="1"/><path d="M3 10.5h18M9 5v11M15 5v11M12 16v3M8 19h8"/></svg></div>
-      <h3>지상형 발전소</h3><p>개인·협동조합·SPC 발전사업자의 수백 kW~수 MW급 발전소를 토목부터 계통연계까지 직접 시공합니다.</p><a href="business-ground.html">자세히 보기 →</a></article>
-    <article class="biz-card"><div class="biz-icon"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20V9l6-5 6 5v11M10 20v-6h4v6"/></svg></div>
-      <h3>지붕형 · 공공시설</h3><p>공공건물·공장·창고 지붕. 구조 안전성과 방수를 먼저 검토하고 운영 중인 시설에 지장 없이 시공합니다.</p><a href="business-roof.html">자세히 보기 →</a></article>
-    <article class="biz-card"><div class="biz-icon"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div>
-      <h3>BIPV · 수상 · 리파워링</h3><p>건물 외장 일체형, 저수지 수상형, 노후 발전소 모듈·인버터 교체. 일반 시공과 다른 공정이 필요한 유형입니다.</p><a href="business-special.html">자세히 보기 →</a></article>
+      <h3>지상형 태양광 발전소</h3><p>개인·협동조합·SPC 발전사업자의 수백 kW~수 MW급 발전소를 토목부터 계통연계까지 직접 시공합니다.</p><a href="business-ground.html">자세히 보기 →</a></article>
+    <article class="biz-card"><div class="biz-icon"><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7M5 10v10h14V10M7 13h10M7 16h10M10 13v6M14 13v6"/></svg></div>
+      <h3>지붕형 태양광 · 공공시설</h3><p>공공건물·공장·창고 지붕. 구조 안전성과 방수를 먼저 검토하고 운영 중인 시설에 지장 없이 시공합니다.</p><a href="business-roof.html">자세히 보기 →</a></article>
+    <article class="biz-card"><div class="biz-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg></div>
+      <h3>BIPV · 수상태양광 · 리파워링</h3><p>건물 외장 일체형, 저수지 수상형, 노후 발전소 모듈·인버터 교체. 일반 시공과 다른 공정이 필요한 유형입니다.</p><a href="business-special.html">자세히 보기 →</a></article>
     <article class="biz-card"><div class="biz-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.4 2.4-2.1-2.1z"/></svg></div>
-      <h3>유지관리 · A/S</h3><p>준공 후 정기점검과 신속한 고장 대응으로 발전효율을 유지합니다.</p><a href="business-om.html">자세히 보기 →</a></article>
+      <h3>발전소 유지관리 · A/S</h3><p>준공 후 정기점검과 신속한 고장 대응으로 발전효율을 유지합니다.</p><a href="business-om.html">자세히 보기 →</a></article>
   </div>
 </div></section>
 
@@ -202,7 +202,7 @@ index_body = f'''
 </div></section>
 
 <section class="section reveal" id="projects"><div class="wrap">
-  <div class="section-head"><div><p class="eyebrow">Projects</p><h2 class="sec-title">주요 시공실적</h2>
+  <div class="section-head"><div><p class="eyebrow">Projects</p><h2 class="sec-title">태양광 발전소 시공실적</h2>
   <p class="sec-lead">소규모 발전사업자의 발전소부터 공공시설 지붕, 5MW 산업단지, BIPV까지 18개 현장을 준공했습니다.</p></div>
   <a class="btn btn-outline" href="projects.html">전체 실적</a></div>
   <div class="projects">
@@ -323,13 +323,13 @@ grid = '''
 </ol>'''
 page('business.html', '사업분야', '''
 <section class="block reveal"><div class="wrap">
-  <div class="block-head"><p class="eyebrow">Business Areas</p><h2 class="sec-title">사업분야</h2>
-  <p class="sec-lead">소규모 발전사업자의 지상형 발전소가 주력이고, 공공시설·공장 지붕형, 건물일체형(BIPV)·수상형·리파워링까지 네 유형 모두 준공 실적이 있습니다.</p></div>
+  <div class="block-head"><p class="eyebrow">Business Areas</p><h2 class="sec-title">태양광 사업분야</h2>
+  <p class="sec-lead">소규모 발전사업자의 지상형 태양광 발전소가 주력이고, 공공시설·공장 지붕형, 건물일체형(BIPV)·수상형·리파워링까지 네 유형 모두 준공 실적이 있습니다.</p></div>
   <div class="hub">
-    <article class="proj"><div class="ph"><img src="img/yeoju.jpg" alt="" loading="lazy"></div><div class="proj-body"><h3>지상형 발전소</h3><p>개인·협동조합·SPC 발전사업자의 수백 kW~수 MW급 발전소. 토목부터 계통연계까지 직접 시공하고 허가·검사 절차를 함께 챙깁니다.</p><a class="more" href="business-ground.html">자세히 보기 →</a></div></article>
-    <article class="proj"><div class="ph"><img src="img/wonju.jpg" alt="" loading="lazy"></div><div class="proj-body"><h3>지붕형 · 공공시설</h3><p>공공건물·공장·창고 지붕에 설치하는 발전소. 지붕 구조 안전성과 방수를 먼저 검토하고, 운영 중인 시설에 지장 없이 시공합니다.</p><a class="more" href="business-roof.html">자세히 보기 →</a></div></article>
-    <article class="proj"><div class="ph"><img src="img/yeouido.jpg" alt="" loading="lazy"></div><div class="proj-body"><h3>BIPV · 수상형 · 리파워링</h3><p>건물 외장과 일체화된 BIPV, 저수지 수상형, 노후 발전소의 모듈·인버터 교체. 일반 시공과 다른 설계·공정이 필요한 유형입니다.</p><a class="more" href="business-special.html">자세히 보기 →</a></div></article>
-    <article class="proj"><div class="ph"><img src="img/mungyeong.jpg" alt="" loading="lazy"></div><div class="proj-body"><h3>유지관리 · A/S</h3><p>준공 후 정기점검과 신속한 고장 대응으로 발전효율을 유지합니다.</p><a class="more" href="business-om.html">자세히 보기 →</a></div></article>
+    <article class="proj"><div class="ph"><img src="img/yeoju.jpg" alt="" loading="lazy"></div><div class="proj-body"><h3>지상형 태양광 발전소</h3><p>개인·협동조합·SPC 발전사업자의 수백 kW~수 MW급 발전소. 토목부터 계통연계까지 직접 시공하고 허가·검사 절차를 함께 챙깁니다.</p><a class="more" href="business-ground.html">자세히 보기 →</a></div></article>
+    <article class="proj"><div class="ph"><img src="img/wonju.jpg" alt="" loading="lazy"></div><div class="proj-body"><h3>지붕형 태양광 · 공공시설</h3><p>공공건물·공장·창고 지붕에 설치하는 발전소. 지붕 구조 안전성과 방수를 먼저 검토하고, 운영 중인 시설에 지장 없이 시공합니다.</p><a class="more" href="business-roof.html">자세히 보기 →</a></div></article>
+    <article class="proj"><div class="ph"><img src="img/yeouido.jpg" alt="" loading="lazy"></div><div class="proj-body"><h3>BIPV · 수상태양광 · 리파워링</h3><p>건물 외장과 일체화된 BIPV, 저수지 수상형, 노후 발전소의 모듈·인버터 교체. 일반 시공과 다른 설계·공정이 필요한 유형입니다.</p><a class="more" href="business-special.html">자세히 보기 →</a></div></article>
+    <article class="proj"><div class="ph"><img src="img/mungyeong.jpg" alt="" loading="lazy"></div><div class="proj-body"><h3>발전소 유지관리 · A/S</h3><p>준공 후 정기점검과 신속한 고장 대응으로 발전효율을 유지합니다.</p><a class="more" href="business-om.html">자세히 보기 →</a></div></article>
   </div>
 </div></section>
 <div class="wrap">''' + TRADES + '''</div>
@@ -354,9 +354,9 @@ site_cond = '''
   <article class="type"><div class="photo"><img src="img/yeoju.jpg" alt="" loading="lazy"></div><div class="type-body"><h3>부지 경사 · 기초</h3><p>경사지는 토공량과 기초 형식이 공사비를 좌우합니다. 레벨 측정으로 절·성토를 최소화하고 지반에 맞는 기초를 고릅니다.</p><ul><li>콘크리트 독립기초 또는 스파이럴 파일</li><li>배수 계획 없으면 우기에 기초 세굴 발생</li></ul></div></article>
   <article class="type"><div class="photo"><img src="img/field2.jpg" alt="" loading="lazy"></div><div class="type-body"><h3>어레이 간격 · 음영</h3><p>간격을 좁히면 용량은 늘지만 겨울철 앞 열 그림자가 발전량을 깎습니다. 동지 기준 음영으로 간격을 정합니다.</p><ul><li>용량 극대화와 발전량의 균형</li><li>주변 수목 성장까지 고려</li></ul></div></article>
 </div>'''
-page('business-ground.html', '지상형 발전소', '''
+page('business-ground.html', '지상형 태양광 발전소', '''
 <section class="block reveal"><div class="wrap two">
-  <div class="prose"><p class="eyebrow">For Power Producers</p><h2 class="sec-title">지상형 발전소 시공</h2>
+  <div class="prose"><p class="eyebrow">For Power Producers</p><h2 class="sec-title">지상형 태양광 발전소 시공</h2>
     <p>개인·협동조합·SPC가 짓는 수백 kW~1MW급 지상형 발전소가 가온이엔지의 주력입니다. 2020년 연천 770kW를 시작으로 강원 영서권(화천·원주·횡성·영월)과 경기·전남에서 지상형 발전소 12곳을 준공했고, 2021년 고흥 3MW, 2024년 인천북항산업단지 5.2MW까지 규모를 넓혔습니다.</p>
     <p>발전사업은 용량 구간에 따라 허가 기관, 한전 연계 방식, 공급인증서(REC) 가중치가 달라집니다. 설계 단계에서 이 조건을 함께 검토해, 같은 부지에서 수익이 가장 잘 나오는 용량과 배치를 잡습니다.</p></div>
   <div class="photo"><img src="img/goheung.jpg" alt="고흥 태양광발전소" loading="lazy"></div>
@@ -382,9 +382,9 @@ roof_cases = '''
   <figure><div class="photo"><img src="img/chungju.jpg" alt="" loading="lazy"></div><figcaption><b>충주 세아특수강</b>2,400kW · 공장 지붕</figcaption></figure>
   <figure><div class="photo"><img src="img/mungyeong.jpg" alt="" loading="lazy"></div><figcaption><b>문경 서일태양광</b>1,000kW</figcaption></figure>
 </div>'''
-page('business-roof.html', '지붕형 · 공공시설', '''
+page('business-roof.html', '지붕형 태양광 · 공공시설', '''
 <section class="block reveal"><div class="wrap two">
-  <div class="prose"><p class="eyebrow">For Public &amp; Industrial Buildings</p><h2 class="sec-title">지붕형 발전소</h2>
+  <div class="prose"><p class="eyebrow">For Public &amp; Industrial Buildings</p><h2 class="sec-title">지붕형 태양광 발전소</h2>
     <p>공공건물·공장·창고 지붕형 발전소는 땅을 사지 않아도 되고 건물의 전기요금을 줄여줍니다. 대신 시설이 운영 중인 상태에서 공사하므로, 지붕 구조의 안전성 검토와 방수, 작업 동선과 안전관리가 지상형보다 훨씬 까다롭습니다.</p>
     <p>가온이엔지는 원주 혁신센터(315.4kW) 등 공공시설과 음성 하이퍼윈도우(234kW) 등 기업 공장 지붕형 발전소를 준공했습니다. 공공기관 발주 공사의 서류·검사 절차와 공장의 조업 조건을 모두 경험했습니다.</p></div>
   <div class="photo"><img src="img/wonju.jpg" alt="원주 혁신센터 지붕형 태양광" loading="lazy"></div>
@@ -398,9 +398,9 @@ page('business-roof.html', '지붕형 · 공공시설', '''
 bipv = '''<div class="two"><div class="photo"><img src="img/yeouido.jpg" alt="" loading="lazy"></div><div class="prose"><h3 style="font-size:1.2rem">건물일체형 BIPV</h3><p>모듈이 외장재(커튼월·스팬드럴)를 겸합니다. 발전량보다 외관·방수·화재 안전이 먼저이고, 건축 설계 단계부터 외장 시공사와 공정을 맞춰야 합니다. 수직면 설치라 발전량 검토 기준도 다릅니다.</p><ul class="checks"><li>여의도 사학재단 418.9kW (2024)</li><li>마곡 CP 163.9kW (2024)</li></ul></div></div>'''
 floating = '''<div class="two"><div class="photo"><img src="img/boryeong.jpg" alt="" loading="lazy"></div><div class="prose"><h3 style="font-size:1.2rem">수상형</h3><p>저수지·담수 위에 부력체를 띄우고 계류(앵커)로 고정합니다. 수위 변동과 풍파를 견디면서 어레이 간격을 유지해야 하고, 모든 부재가 상시 습기에 노출되므로 내식성 소재가 필수입니다.</p><ul class="checks"><li>부력체 내구성 · 계류 하중 검토</li><li>육상 수전설비까지 케이블 경로</li><li>보령화력 수상태양광 시공 참여</li></ul></div></div>'''
 repower = '''<div class="two"><div class="photo"><img src="img/field2.jpg" alt="" loading="lazy"></div><div class="prose"><h3 style="font-size:1.2rem">리파워링</h3><p>10년 이상 된 발전소는 모듈 효율 저하와 인버터 노후로 발전량이 눈에 띄게 줄어듭니다. 구조물과 계통연계 설비는 두고 모듈·인버터만 최신 제품으로 바꾸면 같은 부지에서 용량과 발전량이 늘어납니다.</p><ul class="checks"><li>기존 구조물 하중 여유 · 부식 상태 검토</li><li>신규 모듈 규격에 맞는 보강 · 스트링 재구성</li><li>용량 변경 시 인허가 변경 필요</li><li>가평 위곡 리파워링 137kW (2024)</li></ul></div></div>'''
-page('business-special.html', 'BIPV · 수상 · 리파워링', '''
+page('business-special.html', 'BIPV · 수상태양광 · 리파워링', '''
 <section class="block reveal"><div class="wrap">
-  <div class="block-head"><p class="eyebrow">Special Types</p><h2 class="sec-title">특수 유형</h2>
+  <div class="block-head"><p class="eyebrow">Special Types</p><h2 class="sec-title">특수 유형 태양광</h2>
   <p class="sec-lead">2024년 서울 여의도·마곡에서 건물일체형(BIPV) 2건, 가평에서 리파워링 1건을 준공했고 보령화력 수상태양광 시공에 참여했습니다. 세 유형 모두 일반 지상·지붕형과 다른 공정을 요구합니다.</p></div>
 ''' + tabs([('BIPV', bipv), ('수상형', floating), ('리파워링', repower)], 'sp') + '''
 </div></section>

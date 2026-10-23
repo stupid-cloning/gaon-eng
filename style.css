@@ -58,7 +58,7 @@ p{margin:0}
 .brand-mark::after{content:"";position:absolute;inset:9px;border:2px solid #fff;border-radius:3px;opacity:.9;background:repeating-linear-gradient(90deg,transparent 0 5px,rgba(255,255,255,.7) 5px 6px)}
 .brand-text{line-height:1.15}
 .brand-text b{display:block;font-size:1.05rem;font-weight:900;letter-spacing:.02em}
-.brand-text span{display:block;font-size:.72rem;color:var(--fg-muted);letter-spacing:.08em}
+.brand-text span{display:block;font-size:.72rem;color:var(--fg-muted);letter-spacing:.02em}
 .nav{display:flex;align-items:center;gap:2rem;font-weight:500}
 .nav a{padding:.5rem 0;border-bottom:2px solid transparent}
 .nav a:hover{border-bottom-color:var(--accent);color:var(--accent)}
@@ -68,7 +68,7 @@ p{margin:0}
 /* hero */
 .hero{position:relative;background:var(--navy-deep);color:var(--on-dark);overflow:hidden}
 .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 60%;opacity:.55}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,21,44,.92) 0%,rgba(6,21,44,.65) 55%,rgba(6,21,44,.35) 100%)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,21,44,.9) 0%,rgba(6,21,44,.6) 50%,rgba(6,21,44,.15) 100%)}
 .hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.8fr);gap:3rem;align-items:center;padding-block:5.5rem 5rem}
 .hero-kicker{font-size:.9rem;letter-spacing:.12em;color:var(--on-dark-muted);font-weight:500}
 .hero h1{font-size:clamp(1.9rem,4vw,3rem);font-weight:900;margin-top:.8rem;line-height:1.25}
@@ -314,7 +314,7 @@ p{margin:0}
 .tablist button[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent);font-weight:700}
 .slides{position:absolute;inset:0}
 .slides .hero-img{opacity:0;transition:opacity 1.2s ease}
-.slides .hero-img.is-on{opacity:.55}
+.slides .hero-img.is-on{opacity:.8}
 .hero-copy{position:relative;display:grid}
 .slide-copy{grid-area:1/1;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease,visibility 0s .6s}
 .slide-copy.is-on{opacity:1;visibility:visible;transform:none;transition:opacity .6s ease .2s,transform .6s ease .2s,visibility 0s}
