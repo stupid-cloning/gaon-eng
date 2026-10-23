@@ -135,17 +135,31 @@ def kw_fmt(kw):
 index_body = f'''
 <section class="hero" id="top">
   <div class="slides" data-slider>
-    <img class="hero-img is-on" src="img/hero.jpg" alt="" width="1280" height="960">
-    <img class="hero-img" src="img/field2.jpg" alt="" width="873" height="652">
-    <img class="hero-img" src="img/goheung.jpg" alt="" width="900" height="675">
+    <img class="hero-img is-on" src="img/goheung.jpg" alt="" width="900" height="675">
+    <img class="hero-img" src="img/wonju.jpg" alt="" width="900" height="675">
+    <img class="hero-img" src="img/yeouido.jpg" alt="" width="675" height="900">
   </div>
   <div class="wrap">
-    <div>
-      <p class="hero-kicker">강원 원주 · 전기공사업 등록 · 태양광 시공 전문</p>
-      <h1>태양광 발전소,<br>토목부터 계통연계까지 <em>직접 시공</em>합니다</h1>
-      <p class="hero-lead">소규모 발전사업자의 수백 kW급 발전소부터 공공시설·공장 지붕, 5MW 산업단지, 건물일체형(BIPV)까지. 다섯 공종을 한 회사가 맡아 빠르고 경제적으로 짓습니다.</p>
-      <div class="hero-actions"><a class="btn btn-primary" href="projects.html">시공실적</a><a class="btn btn-ghost" href="business.html">사업분야</a></div>
-      <div class="dots" data-dots aria-hidden="true"></div>
+    <div class="hero-copy">
+      <div class="slide-copy is-on">
+        <p class="hero-kicker">지상형 발전소 · 소규모 발전사업자</p>
+        <h1>태양광 발전소,<br>토목부터 계통연계까지 <em>직접 시공</em>합니다</h1>
+        <p class="hero-lead">개인·협동조합·SPC의 수백 kW~수 MW급 발전소. 다섯 공종을 한 회사가 맡아 공정을 줄이고 공사비를 낮춥니다.</p>
+        <div class="hero-actions"><a class="btn btn-primary" href="business-ground.html">지상형 발전소</a><a class="btn btn-ghost" href="projects.html">시공실적</a></div>
+      </div>
+      <div class="slide-copy">
+        <p class="hero-kicker">공공시설 · 공장 지붕형</p>
+        <h1>운영 중인 시설 위에,<br><em>안전하게</em> 짓습니다</h1>
+        <p class="hero-lead">원주 혁신센터 등 공공시설과 기업 공장 지붕형 준공 경험. 구조 안전성과 방수를 먼저 검토하고 조업에 지장 없이 시공합니다.</p>
+        <div class="hero-actions"><a class="btn btn-primary" href="business-roof.html">지붕형 · 공공시설</a><a class="btn btn-ghost" href="projects.html">시공실적</a></div>
+      </div>
+      <div class="slide-copy">
+        <p class="hero-kicker">BIPV · 수상형 · 리파워링</p>
+        <h1>일반 시공과 다른 현장도<br><em>준공 경험</em>이 있습니다</h1>
+        <p class="hero-lead">2024년 서울 여의도·마곡 건물일체형(BIPV) 2건, 가평 리파워링, 보령화력 수상태양광 시공 참여.</p>
+        <div class="hero-actions"><a class="btn btn-primary" href="business-special.html">BIPV · 수상 · 리파워링</a><a class="btn btn-ghost" href="projects-gallery.html">시공 현장 사진</a></div>
+      </div>
+      <div class="slide-tabs" data-dots role="tablist" aria-label="메인 메시지"></div>
     </div>
     <aside class="stat-card" aria-label="주요 현황">
       <h3>COMPANY AT A GLANCE</h3>

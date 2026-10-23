@@ -315,9 +315,14 @@ p{margin:0}
 .slides{position:absolute;inset:0}
 .slides .hero-img{opacity:0;transition:opacity 1.2s ease}
 .slides .hero-img.is-on{opacity:.55}
-.dots{display:flex;gap:.5rem;margin-top:2rem}
-.dots button{width:2rem;height:4px;border:0;border-radius:2px;background:rgba(255,255,255,.3);cursor:pointer;padding:0}
-.dots button.on{background:#fff}
+.hero-copy{position:relative;display:grid}
+.slide-copy{grid-area:1/1;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease,visibility 0s .6s}
+.slide-copy.is-on{opacity:1;visibility:visible;transform:none;transition:opacity .6s ease .2s,transform .6s ease .2s,visibility 0s}
+.slide-tabs{display:flex;gap:0;margin-top:2.4rem;border-top:1px solid rgba(255,255,255,.2);flex-wrap:wrap}
+.slide-tabs button{font:inherit;font-size:.85rem;font-weight:500;color:var(--on-dark-muted);background:transparent;border:0;border-top:2px solid transparent;margin-top:-1px;padding:.9rem 1.2rem .2rem 0;cursor:pointer;text-align:left;display:flex;gap:.5rem;align-items:baseline;margin-right:1.6rem}
+.slide-tabs button i{font-style:normal;font-size:.75rem;font-variant-numeric:tabular-nums;opacity:.7}
+.slide-tabs button.on{color:#fff;border-top-color:#fff;font-weight:700}
+.slide-tabs button:hover{color:#fff}
 .contact-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem}
 .contact-cards b{user-select:all}
 .cta .contact-grid .btn-ghost{width:100%;justify-content:center}

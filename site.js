@@ -51,22 +51,27 @@
     });
   }
 
-  /* ---- 메인 비주얼 슬라이드 ---- */
+  /* ---- 메인 비주얼 슬라이드 (사진 + 문구 + 버튼이 함께 바뀜) ---- */
   var sl = document.querySelector('[data-slider]');
   if (sl) {
-    var imgs = sl.querySelectorAll('.hero-img'), dots = document.querySelector('[data-dots]'), cur = 0, timer;
+    var imgs = sl.querySelectorAll('.hero-img'), copies = document.querySelectorAll('.slide-copy'),
+        dots = document.querySelector('[data-dots]'), labels = ['지상형 발전소', '공공시설 · 지붕형', 'BIPV · 특수 유형'], cur = 0, timer;
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var go = function (i) {
-      imgs[cur].classList.remove('is-on'); cur = (i + imgs.length) % imgs.length; imgs[cur].classList.add('is-on');
-      if (dots) dots.querySelectorAll('button').forEach(function (d, k) { d.classList.toggle('on', k === cur); });
+      i = (i + imgs.length) % imgs.length;
+      imgs[cur].classList.remove('is-on'); copies[cur].classList.remove('is-on'); cur = i;
+      imgs[cur].classList.add('is-on'); copies[cur].classList.add('is-on');
+      if (dots) dots.querySelectorAll('button').forEach(function (d, k) { d.classList.toggle('on', k === cur); d.setAttribute('aria-selected', k === cur ? 'true' : 'false'); });
     };
+    var restart = function () { clearInterval(timer); if (!reduce && imgs.length > 1) timer = setInterval(function () { go(cur + 1); }, 7000); };
     if (dots) imgs.forEach(function (_, k) {
-      var d = document.createElement('button'); d.type = 'button'; d.setAttribute('aria-label', (k + 1) + '번 사진');
-      if (k === 0) d.className = 'on';
+      var d = document.createElement('button'); d.type = 'button'; d.setAttribute('role', 'tab');
+      d.innerHTML = '<i>0' + (k + 1) + '</i>' + labels[k]; if (k === 0) d.className = 'on';
       d.addEventListener('click', function () { go(k); restart(); });
       dots.appendChild(d);
     });
-    var restart = function () { clearInterval(timer); if (!reduce && imgs.length > 1) timer = setInterval(function () { go(cur + 1); }, 6000); };
+    sl.parentElement.addEventListener('mouseenter', function () { clearInterval(timer); });
+    sl.parentElement.addEventListener('mouseleave', restart);
     restart();
   }
 
